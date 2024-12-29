@@ -34,12 +34,21 @@ export const CartProvider = ({ children }) => {
         alertify.success("Sepetiniz boşaltıldı!");
     };
 
+    const completePurchase = () => {
+        if (cart.length === 0) {
+            alertify.error("Sepetiniz boş, satın alım işlemi yapılamaz.");
+            return;
+        }
+        clearCart();
+        alertify.success("Satın alma başarıyla tamamlandı!");
+    };
+
     const getTotal = () => {
         return cart.reduce((acc, item) => acc + item.price, 0); // Fiyatı toplama ekleyerek toplam tutarı hesapla
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, getTotal }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, completePurchase, getTotal }}>
             {children}
         </CartContext.Provider>
     );

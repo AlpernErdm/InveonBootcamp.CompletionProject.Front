@@ -17,16 +17,20 @@ const CourseDetail = () => {
         };
         fetchCourse();
     }, [id]);
-
+    
     if (!course) return <div className="text-center mt-5">Yükleniyor...</div>;
 
     return (
         <div className="container mt-4">
             <h1>{course.name}</h1>
+         
             <p>{course.description}</p>
-            <p>Fiyat: {course.price} ₺</p>
+            <p className='card-text'><strong>Eğitmen:</strong> {course.instructor}</p>
+            <p className='card-text'><strong>Değerlendirme:</strong> {course.rating}</p>
+            <p className='card-text'><strong>Fiyat:</strong> {course.price} ₺</p>
+            <p className='card-text'><strong>Kategori:</strong>{course.category}</p>
         </div>
     );
 };
 
-export default CourseDetail;
+export default CourseDetail

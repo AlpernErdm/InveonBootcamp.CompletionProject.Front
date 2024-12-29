@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CategoryMenu = ({ categories, selectedCategory, onCategorySelect }) => {
+    if (!categories) {
+        return null; // Kategoriler yüklenene kadar boş dön.
+    }
+    
     return (
         <div className="category-menu">
             <ul className="nav nav-pills">

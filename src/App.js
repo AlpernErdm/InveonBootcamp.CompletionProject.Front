@@ -18,6 +18,7 @@ function App() {
                 <Route path="/course/:id" element={<CourseDetail />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/cart" element={<CartPage />} />
+                  <Route path="/course/:id" element={<CourseDetail />} /> {/* Kurs detay sayfası */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/payment" element={<PaymentPage />} />
