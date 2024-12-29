@@ -17,8 +17,6 @@ const theme = createTheme();
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('');
-    const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const { register } = useAuth();
@@ -27,9 +25,20 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const userDetails = { username, password, role, address, email, phoneNumber };
-        await register(userDetails);
-        setLoading(false);
+        const userDetails = {
+            username,
+            password,
+            email,
+            phoneNumber
+        };
+        console.log('User Details:', userDetails); // Veriyi kontrol edin
+        try {
+            await register(userDetails);
+        } catch (error) {
+            console.error("Register failed:", error); // Hata loglama
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -49,7 +58,7 @@ const RegisterPage = () => {
                     <Typography component="h1" variant="h5">
                         Kayıt Ol
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -73,28 +82,6 @@ const RegisterPage = () => {
                                     name="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="role"
-                                    label="Rol"
-                                    name="role"
-                                    value={role}
-                                    onChange={(e) => setRole(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="address"
-                                    label="Adres"
-                                    name="address"
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>

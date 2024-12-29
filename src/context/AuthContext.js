@@ -14,36 +14,47 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const response = await loginUser({ email, password });
-            console.log('Login response:', response.data); // Gelen yanıtı kontrol edelim
-            
+            console.log('Login response:', response.data);
             if (response.data.authenticateResult) {
-                setUser({ email: email }); // Sadece email almak bu noktada yeterli
-                localStorage.setItem('token', response.data.authToken); // JWT token'ı saklanması
+                setUser({ email: email });
+                localStorage.setItem('token', response.data.authToken);
                 alertify.success("Giriş başarılı!");
                 navigate("/");
             } else {
                 alertify.error("Geçersiz e-posta veya şifre!");
             }
         } catch (error) {
-            console.log('Login error:', error.response); // Hata mesajını kontrol edelim
+            console.log('Login error:', error.response);
             alertify.error("Geçersiz e-posta veya şifre!");
         }
     };
 
     const register = async (userDetails) => {
         try {
-            const response = await registerUser(userDetails); // Tüm kullanıcı bilgilerini gönder
+            const response = await registerUser(userDetails);
             console.log('Register response:', response.data);
-            setUser(response.data.user);
-            localStorage.setItem('token', response.data.token); // JWT token'ı sakla
-            alertify.success("Kayıt başarılı!");
-            navigate("/");
+            if (response.status === 201) {  // 201 Created statusu kontrol etme
+                setUser(response.data);
+                localStorage.setItem('token', response.data.token || '');
+                alertify.success("Kayıt başarılı!");
+                navigate("/");
+            } else {
+                alertify.error("Kayıt sırasında bir hata oluştu!");
+            }
         } catch (error) {
-            console.log('Register error:', error.response); // Hata mesajını kontrol edelim
-            alertify.error("Kayıt sırasında bir hata oluştu!");
+            console.log('Register error:', error.response);
+            if (error.response && error.response.data && error.response.data.errors) {
+                const validationErrors = error.response.data.errors;
+                for (const [field, errorMessages] of Object.entries(validationErrors)) {
+                    errorMessages.forEach(msg => {
+                        alertify.error(`${field}: ${msg}`);
+                    });
+                }
+            } else {
+                alertify.error("Kayıt sırasında bir hata oluştu!");
+            }
         }
     };
-    
 
     const logout = () => {
         setUser(null);
