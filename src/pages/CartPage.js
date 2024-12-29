@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
 function CartPage() {
-    const { cart, removeFromCart } = useCart();
+    const { cart, removeFromCart, getTotal } = useCart();
 
     return (
         <div className="container mt-4">
@@ -22,7 +22,10 @@ function CartPage() {
                         </li>
                     ))}
                 </ul>
-            )}
+    
+            )
+            }
+              <h3>Toplam: {getTotal()} ₺</h3>
             {cart.length > 0 && (
                 <Link to="/payment" className="btn btn-primary btn-lg btn-block">Ödeme Yap</Link>
             )}
