@@ -31,11 +31,11 @@ const RegisterPage = () => {
             email,
             phoneNumber
         };
-        console.log('User Details:', userDetails); // Veriyi kontrol edin
+        console.log('User Details:', userDetails); 
         try {
             await register(userDetails);
         } catch (error) {
-            console.error("Register failed:", error); // Hata loglama
+            console.error("Register failed:", error); 
         } finally {
             setLoading(false);
         }

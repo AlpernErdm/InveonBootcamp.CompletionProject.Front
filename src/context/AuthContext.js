@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await registerUser(userDetails);
             console.log('Register response:', response.data);
-            if (response.status === 201) {  // 201 Created statusu kontrol etme
+            if (response.status === 201) {  
                 setUser(response.data);
                 localStorage.setItem('token', response.data.token || '');
                 alertify.success("Kayıt başarılı!");

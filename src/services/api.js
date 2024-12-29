@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:7189/api'; // Doğru URL kullandığınızdan emin olun
+const API_URL = 'https://localhost:7189/api'; 
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -9,10 +9,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`; // Header içerisindeki token eklemsi
+    config.headers['Authorization'] = `Bearer ${token}`; 
   }
   
-  console.log('Request config:', config); // Request Gönderiliyor
+  console.log('Request config:', config); 
   
   return config;
 }, error => {
@@ -20,10 +20,10 @@ axiosInstance.interceptors.request.use(config => {
 });
 
 axiosInstance.interceptors.response.use(response => {
-  console.log('Response:', response); // Response Alındı
+  console.log('Response:', response); 
   return response;
 }, error => {
-  console.error('Error response:', error); // Hata Ayıklama
+  console.error('Error response:', error); 
   return Promise.reject(error);
 });
 
