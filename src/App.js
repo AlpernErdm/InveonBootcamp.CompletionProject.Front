@@ -1,5 +1,9 @@
 import { Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+import { CourseProvider } from "./context/CourseContext";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import CourseDetail from "./pages/CourseDetail";
 import ProfilePage from "./pages/ProfilePage";
@@ -9,23 +13,25 @@ import RegisterPage from "./pages/RegisterPage";
 import PaymentPage from "./pages/PaymentPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
-function App() {
+export default function App() {
     return (
-        <>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/course/:id" element={<CourseDetail />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/cart" element={<CartPage />} />
-                  <Route path="/course/:id" element={<CourseDetail />} /> {/* Kurs detay sayfası */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/payment" element={<PaymentPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-        </>
+        <AuthProvider>
+            <CourseProvider>
+                <CartProvider>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/course/:id" element={<CourseDetail />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/cart" element={<CartPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/payment" element={<PaymentPage />} />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                    <Footer />
+                </CartProvider>
+            </CourseProvider>
+        </AuthProvider>
     );
 }
-
-export default App;

@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import alertify from "alertifyjs";
 import { registerUser, loginUser } from '../services/api';
+import { jwtDecode } from 'jwt-decode'; // Named export olarak içe aktaralım
 
 const AuthContext = createContext();
 
@@ -11,20 +12,50 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const savedToken = localStorage.getItem('token');
+        if (savedToken) {
+            const decoded = jwtDecode(savedToken);
+            if (decoded) {
+                setUser({
+                    id: decoded.userId,
+                    email: decoded.email,
+                    role: decoded.role
+                });
+                console.log("Restored user from token:", decoded); 
+            }
+        }
+        
+        const savedUser = JSON.parse(localStorage.getItem('user'));
+        if (savedUser) {
+            setUser(savedUser);
+        }
+        console.log("Restored user from localStorage:", savedUser); 
+    }, []);
+
     const login = async (email, password) => {
         try {
             const response = await loginUser({ email, password });
-            console.log('Login response:', response.data);
-            if (response.data.authenticateResult) {
-                setUser({ email: email });
-                localStorage.setItem('token', response.data.authToken);
+            if (response.data.authToken) {
+                const token = response.data.authToken;
+                const decodedToken = jwtDecode(token);
+                
+                const userData = {
+                    id: decodedToken.userId,
+                    email: decodedToken.email,
+                    role: decodedToken.role
+                };
+
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(userData));
+                setUser(userData);
+
                 alertify.success("Giriş başarılı!");
                 navigate("/");
             } else {
                 alertify.error("Geçersiz e-posta veya şifre!");
             }
         } catch (error) {
-            console.log('Login error:', error.response);
             alertify.error("Geçersiz e-posta veya şifre!");
         }
     };
@@ -33,9 +64,10 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await registerUser(userDetails);
             console.log('Register response:', response.data);
-            if (response.status === 201) {  
-                setUser(response.data);
-                localStorage.setItem('token', response.data.token || '');
+            if (response.status === 201) {
+                const userData = response.data;
+                localStorage.setItem('user', JSON.stringify(userData));
+                setUser(userData);
                 alertify.success("Kayıt başarılı!");
                 navigate("/");
             } else {
@@ -59,12 +91,13 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         alertify.success("Çıkış yapıldı!");
         navigate("/");
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout }}>
+        <AuthContext.Provider value={{ user, setUser, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );
