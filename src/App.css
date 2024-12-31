@@ -1,38 +1,145 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  padding-top: 70px; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+main {
+  flex: 1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.navbar .navbar-brand {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: #212529 !important;
+}
+
+.navbar .btn {
+  margin-right: 10px;
+  text-align: center;
+  padding: .5375rem .75rem;
+  border-radius: .25rem;
+  color: white !important;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar .btn-dark {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.navbar .btn-dark:hover {
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+.footer {
+  background-color: #343a40;
   color: white;
+  text-align: center;
+  padding: 10px; /* Daha küçük padding */
+  width: 100%;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.profile-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: .25rem;
+  margin-bottom: 2rem;
+}
+
+.profile-card .card-body {
+  padding: 20px;
+}
+
+.profile-card .card-body p {
+  margin: 0.5rem 0;
+  color: #212529;
+  font-size: 1rem;
+}
+
+.profile-card .btn {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.purchase-history {
+  margin-top: 2rem;
+}
+
+.list-group-item {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: .25rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.list-group-item div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item strong {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.list-group-item ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-group-item li {
+  padding: 5px 0;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.list-group-item .btn {
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
 }
