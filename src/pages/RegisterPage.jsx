@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../context/AuthContext';
+import alertify from 'alertifyjs';
 
 const theme = createTheme();
 
@@ -22,8 +23,26 @@ const RegisterPage = () => {
     const { register } = useAuth();
     const [loading, setLoading] = useState(false);
 
+    const isValidEmail = (email) => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    };
+
+    const isValidPassword = (password) => {
+        // Password validation can be extended as required
+        return password.length >= 6; // Example: Password should be at least 6 characters
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!isValidEmail(email)) {
+            alertify.error("Email kurallarına uymuyor!");
+            return;
+        }
+        if (!isValidPassword(password)) {
+            alertify.error("Şifre en az 6 karakter olmalıdır!");
+            return;
+        }
         setLoading(true);
         const userDetails = {
             username,
@@ -34,8 +53,10 @@ const RegisterPage = () => {
         console.log('User Details:', userDetails); 
         try {
             await register(userDetails);
+            alertify.success("Başarıyla kayıt olundu!");
         } catch (error) {
             console.error("Register failed:", error); 
+            alertify.error("Kayıt başlatılamadı!");
         } finally {
             setLoading(false);
         }
@@ -106,7 +127,6 @@ const RegisterPage = () => {
                                     onChange={(e) => setPhoneNumber(e.target.value)}
                                 />
                             </Grid>
-      
                         </Grid>
                         <Button
                             type="submit"

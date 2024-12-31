@@ -86,9 +86,7 @@ const LoginPage = () => {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link to="#" variant="body2">
-                                    Şifremi unuttum
-                                </Link>
+
                             </Grid>
                             <Grid item>
                                 <Link to="/register" variant="body2">

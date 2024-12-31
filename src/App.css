@@ -60,11 +60,11 @@ main {
   text-align: center;
   padding: 10px; /* Daha küçük padding */
   width: 100%;
-  position: relative;
+  position: absolute;
 }
 
 .footer .container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 

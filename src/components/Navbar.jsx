@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../Navbar.css';
+import '../styles/Navbar.css';
 import teachHubLogo from '../styles/Teach_Hub_logo.png'; // Logoyu import edin
 
 function Navbar() {
