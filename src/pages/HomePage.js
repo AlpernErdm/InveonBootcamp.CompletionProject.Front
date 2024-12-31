@@ -1,11 +1,13 @@
+// HomePage.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCourses } from "../services/api";
-import { useCart } from "../context/CartContext";  
+import { useCart } from "../context/CartContext";  // Sepete ekleme işlevi için
+import '../index.css';  // CSS dosyasını import edin
 
 function HomePage() {
   const navigate = useNavigate();
-  const { addToCart } = useCart(); 
+  const { addToCart } = useCart();  // Sepete ekleme işlevi
   
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -13,8 +15,8 @@ function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   
-  const [currentPage, setCurrentPage] = useState(1);  
-  const coursesPerPage = 6; 
+  const [currentPage, setCurrentPage] = useState(1);  // Sayfa numarası
+  const coursesPerPage = 6;  // Bir sayfada gösterilecek kurs sayısı
 
   useEffect(() => {
     const getCourses = async () => {
@@ -27,7 +29,7 @@ function HomePage() {
 
         // Kategorileri belirle
         const allCategories = coursesData.map(course => course.category);
-        setCategories([...new Set(allCategories)]); 
+        setCategories([...new Set(allCategories)]);  // Eşsiz kategoriler
       } catch (error) {
         console.error('Failed to fetch courses:', error);
       }
@@ -38,14 +40,14 @@ function HomePage() {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1);
+    setCurrentPage(1);  // Sayfa numarasını sıfırla
     filterCourses(category, searchTerm);
   };
 
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    setCurrentPage(1);  
+    setCurrentPage(1);  // Sayfa numarasını sıfırla
     filterCourses(selectedCategory, value);
   };
 
@@ -103,11 +105,11 @@ function HomePage() {
           <div key={course.id} className="col-md-4 mb-3">
             <div className="card">
               <div className="card-body">
-                <h5>{course.name}</h5>
-                <p>Kategori: {course.category}</p>
-                <p>Price: {course.price} ₺</p>
-                <p>Eğitmen: {course.instructor}</p>
-                <p>Değerlendirme: {course.rating}</p>
+                <h5 className="card-title">{course.name}</h5>
+                <p className="card-text">Kategori: {course.category}</p>
+                <p className="card-text">Price: {course.price} ₺</p>
+                <p className="card-text">Eğitmen: {course.instructor}</p>
+                <p className="card-text">Değerlendirme: {course.rating}</p>
                 <button className="btn btn-primary" onClick={() => handleDetails(course.id)}>Detaylar</button>
                 <button className="btn btn-success ms-2" onClick={() => addToCart(course)}>Sepete Ekle</button>
               </div>

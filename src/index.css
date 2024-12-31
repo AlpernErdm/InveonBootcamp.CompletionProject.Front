@@ -81,3 +81,27 @@ body {
   width: 100%;
   margin-top: auto; /* İçeriğin altında durmasını sağlar */
 }
+.card {
+  height: 350px; /* Kartların boyutunu belirli bir yüksekliğe ayarlayın */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* İçeriğin eşit şekilde yayılmasını sağlamak için kullanılır */
+}
+
+.card-body {
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap; /* Tek satırlık bir metin zorlayın */
+  overflow: hidden; /* Fazla metini gizleyin */
+  text-overflow: ellipsis; /* Metnin devamını '...' ile belirtin */
+}
+
+.card-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
