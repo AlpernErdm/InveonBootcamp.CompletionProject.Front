@@ -1,11 +1,16 @@
 import React from 'react';
+import '../Footer.css'; 
+import teachHubLogo from '../styles/Teach_Hub_logo.png';
 
-const Footer = () => {
-    return (
-        <footer style={{ textAlign: 'center', padding: '1rem 0', backgroundColor: '#333', color: 'white' }}>
-            <p>&copy; {new Date().getFullYear()} © 2024 Pudemy, Inc. . Tüm hakları saklıdır.</p>
-        </footer>
-    );
-};
+function Footer() {
+  return (
+    <footer className="footer bg-dark text-dark py-3">
+      <div className="container">
+      <img src={teachHubLogo} alt="TeachHub Logo" className="footer-logo me-3" /> {}
+        <p><strong>© 2024 TeachHub, Inc. All rights reserved.</strong></p>
+      </div>
+    </footer>
+  );
+}
 
 export default Footer;

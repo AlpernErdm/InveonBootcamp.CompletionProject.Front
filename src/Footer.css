@@ -1,0 +1,22 @@
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 0.9rem; 
+  }
+
+  .footer-logo {
+    height: 40px; /* İhtiyacınıza göre ayarlayın */
+  }

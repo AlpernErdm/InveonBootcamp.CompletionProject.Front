@@ -1,0 +1,35 @@
+.navbar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999; 
+}
+
+.navbar .navbar-brand {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: #212529 !important; 
+  padding-left: 10px;
+}
+
+.navbar .btn {
+  margin-right: 10px;
+  text-align: center;
+  padding: .5375rem .75rem; 
+  border-radius: .25rem; 
+  color: white !important;
+  font-weight: bold;
+}
+
+.navbar .btn-dark {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.navbar .btn-dark:hover {
+  background-color: #23272b;
+  border-color: #1d2124;
+}
