@@ -25,7 +25,7 @@ const Navbar = () => {
                     color: 'inherit',
                 }}
             >
-                Kurs Satış Sitesi
+                PUDEMY
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Button component={Link} to="/" sx={{ color: 'white' }}>
