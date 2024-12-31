@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { fetchCourses, fetchCourseById } from "../services/api";
+import { fetchCourses } from "../services/api";
 import alertify from "alertifyjs";
 
 const CourseContext = createContext();

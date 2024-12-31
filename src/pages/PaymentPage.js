@@ -22,20 +22,20 @@ const PaymentPage = () => {
         setCardDetails({ ...cardDetails, [name]: value });
     };
 
-    const validateCardNumber = (number) => {
-        let sum = 0;
-        let shouldDouble = false;
-        for (let i = number.length - 1; i >= 0; i--) {
-            let digit = parseInt(number[i]);
-            if (shouldDouble) {
-                digit *= 2;
-                if (digit > 9) digit -= 9;
-            }
-            sum += digit;
-            shouldDouble = !shouldDouble;
-        }
-        return sum % 10 === 0;
-    };
+    // const validateCardNumber = (number) => {
+    //     let sum = 0;
+    //     let shouldDouble = false;
+    //     for (let i = number.length - 1; i >= 0; i--) {
+    //         let digit = parseInt(number[i]);
+    //         if (shouldDouble) {
+    //             digit *= 2;
+    //             if (digit > 9) digit -= 9;
+    //         }
+    //         sum += digit;
+    //         shouldDouble = !shouldDouble;
+    //     }
+    //     return sum % 10 === 0;
+    // };
 
     const validateExpiry = (expiry) => {
         const [month, year] = expiry.split("/")?.map(Number) || [];
@@ -66,11 +66,11 @@ const PaymentPage = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handlePayment = (e) => {
+    const handlePayment = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
-            completePurchase();
+            await completePurchase();
             alertify.success("Payment Successful!");
             navigate("/profile");
         } else {
@@ -138,8 +138,6 @@ const PaymentPage = () => {
                     </div>
                     <button type='submit' className='btn btn-success w-100'>Ödemeyi Gerçekleştir</button>
                 </form>
-
-                
             </div>
         </div>
     );

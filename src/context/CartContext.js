@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import alertify from 'alertifyjs';
 import { useAuth } from './AuthContext';
+import { createOrder } from '../services/api'; // sipariş oluşturmak için gerekli fonksiyon
 
 const CartContext = createContext();
 
@@ -34,17 +35,34 @@ export const CartProvider = ({ children }) => {
         alertify.success("Sepetiniz boşaltıldı!");
     };
 
-    const completePurchase = () => {
+    const completePurchase = async () => {
+        if (!user || !user.id) {
+            alertify.error("Giriş yapmadan satın alım işlemi yapılamaz.");
+            return;
+        }
         if (cart.length === 0) {
             alertify.error("Sepetiniz boş, satın alım işlemi yapılamaz.");
             return;
         }
-        clearCart();
-        alertify.success("Satın alma başarıyla tamamlandı!");
+
+        const orderData = {
+            userId: user.id,
+            orderCourses: cart.map(course => ({ courseId: course.id }))
+        };
+
+        try {
+            const response = await createOrder(orderData);
+            console.log('Created new order:', response.data);
+            alertify.success("Satın alma başarıyla tamamlandı!");
+            clearCart(); // Sepeti temizle
+        } catch (error) {
+            console.error('Failed to create order:', error.response || error);
+            alertify.error(error.response ? `Error ${error.response.status}: ${error.response.data}` : "Satın alma işlemi yapılırken bir hata oluştu!");
+        }
     };
 
     const getTotal = () => {
-        return cart.reduce((acc, item) => acc + item.price, 0); // Fiyatı toplama ekleyerek toplam tutarı hesapla
+        return cart.reduce((acc, item) => acc + item.price, 0); 
     };
 
     return (

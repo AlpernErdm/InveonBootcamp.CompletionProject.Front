@@ -44,7 +44,18 @@ body {
   box-sizing: border-box;
   min-height: 100vh;
 }
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
 
+.btn-wide {
+  width: 100%; /* Butonu yatay olarak uzatmak için genişlik %100 */
+  padding: 10px;
+  font-size: 16px;
+  display: block;
+  text-align: center;
+}
 
 /* Form container */
 .container {
@@ -56,4 +67,17 @@ body {
   margin-bottom: 20px;
   width: 90%;
   max-width: 500px;
+  flex: 1;
+  margin: 20px;
+}
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: auto; /* İçeriğin altında durmasını sağlar */
 }
