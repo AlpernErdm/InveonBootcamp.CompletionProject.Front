@@ -19,7 +19,6 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [role, setRole] = useState('');
     const { register } = useAuth();
     const [loading, setLoading] = useState(false);
 
@@ -30,8 +29,7 @@ const RegisterPage = () => {
             username,
             password,
             email,
-            phoneNumber,
-            role
+            phoneNumber
         };
         console.log('User Details:', userDetails); 
         try {
@@ -109,18 +107,6 @@ const RegisterPage = () => {
                                 />
                             </Grid>
       
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="role"
-                                    label="Rol"
-                                    name="role"
-                                    value={role}
-                                    onChange={(e) => setRole(e.target.value)}
-                                />
-                            </Grid>
-                            
                         </Grid>
                         <Button
                             type="submit"

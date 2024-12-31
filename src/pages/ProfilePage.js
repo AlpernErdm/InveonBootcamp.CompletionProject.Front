@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { fetchOrderHistory, getOrderById, updateUser, fetchUserByEmail } from "../services/api";
 import alertify from "alertifyjs";
+import '../index.css'; 
 
 function ProfilePage() {
   const { user, setUser } = useAuth();
@@ -12,7 +13,6 @@ function ProfilePage() {
     username: '',
     email: '',
     phoneNumber: '',
-    role: '',
     password: ''
   });
 
@@ -27,7 +27,6 @@ function ProfilePage() {
             username: userData.username || '',
             email: userData.email || '',
             phoneNumber: userData.phoneNumber || '',
-            role: userData.role || '',
             password: '' 
           });
         } catch (error) {
@@ -102,7 +101,7 @@ function ProfilePage() {
 
   return (
     <div className="container mt-4">
-      <div className="card mb-4">
+      <div className="card mb-4 profile-card">
         <div className="card-body">
           <h1 className="card-title">Profilim</h1>
           {editMode ? (
@@ -137,16 +136,7 @@ function ProfilePage() {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="mb-3">
-                <label className="form-label">Rol</label>
-                <input
-                  type="text"
-                  name="role"
-                  className="form-control"
-                  value={userData.role}
-                  onChange={handleInputChange}
-                />
-              </div>
+            
               <div className="mb-3">
                 <label className="form-label">Şifre</label>
                 <input
@@ -165,32 +155,35 @@ function ProfilePage() {
               <p className="card-text"><strong>Kullanıcı Adı:</strong> {userData.username}</p>
               <p className="card-text"><strong>E-posta:</strong> {userData.email}</p>
               <p className="card-text"><strong>Telefon Numarası:</strong> {userData.phoneNumber}</p>
-              <p className="card-text"><strong>Rol:</strong> {userData.role}</p>
-              <button className="btn btn-primary" onClick={() => setEditMode(true)}>Bilgileri Güncelle</button>
+              <button className="btn btn-dark me-2" onClick={() => setEditMode(true)}>Bilgileri Güncelle</button>
             </>
           )}
         </div>
       </div>
-      <h2>Satın Alınan Kurslar</h2>
-      {orders.length === 0 ? (
-        <p>Henüz satın alınan kurs yok.</p>
-      ) : (
-        <ul className="list-group">
-          {orders.map((order) => (
-            <li key={order.id} className="list-group-item">
-              <strong>Sipariş Tarihi:</strong> {new Date(order.orderDate).toLocaleDateString()}
-              <button onClick={() => fetchOrderDetails(order.id)}>Detaylar</button>
-              {selectedOrder && selectedOrder.id === order.id && (
-                <ul className="list-unstyled">
-                  {selectedOrder.orderCourses.map((course) => (
-                    <li key={course.courseId}>{course.course.name} - {course.course.price} ₺</li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="purchase-history">
+        <h2>Satın Alınan Kurslar</h2>
+        {orders.length === 0 ? (
+          <p>Henüz satın alınan kurs yok.</p>
+        ) : (
+          <ul className="list-group">
+            {orders.map((order) => (
+              <li key={order.id} className="list-group-item">
+                <div>
+                  <strong>Sipariş Tarihi:</strong> {new Date(order.orderDate).toLocaleDateString()}
+                </div>
+                <button className="btn btn-dark me-2" onClick={() => fetchOrderDetails(order.id)}>Detaylar</button>
+                {selectedOrder && selectedOrder.id === order.id && (
+                  <ul className="list-unstyled mt-2">
+                    {selectedOrder.orderCourses.map((course) => (
+                      <li key={course.courseId}>{course.course.name} - {course.course.price} ₺</li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

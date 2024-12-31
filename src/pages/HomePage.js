@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCourses } from "../services/api";
-import { useCart } from "../context/CartContext";  // Sepete ekleme işlevi için
-import '../index.css';  // CSS dosyasını import edin
+import { useCart } from "../context/CartContext"; 
+import '../index.css';  
 
 function HomePage() {
   const navigate = useNavigate();
-  const { addToCart } = useCart();  // Sepete ekleme işlevi
+  const { addToCart } = useCart();  
   
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -15,8 +15,8 @@ function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   
-  const [currentPage, setCurrentPage] = useState(1);  // Sayfa numarası
-  const coursesPerPage = 6;  // Bir sayfada gösterilecek kurs sayısı
+  const [currentPage, setCurrentPage] = useState(1); 
+  const coursesPerPage = 6;  
 
   useEffect(() => {
     const getCourses = async () => {
@@ -27,9 +27,9 @@ function HomePage() {
         setCourses(coursesData);
         setFilteredCourses(coursesData);
 
-        // Kategorileri belirle
+       
         const allCategories = coursesData.map(course => course.category);
-        setCategories([...new Set(allCategories)]);  // Eşsiz kategoriler
+        setCategories([...new Set(allCategories)]); 
       } catch (error) {
         console.error('Failed to fetch courses:', error);
       }
@@ -72,7 +72,7 @@ function HomePage() {
 
   return (
     <div className="container mt-4">
-      <h1>Tüm Kurslar</h1>
+       <h1 className="page-title"><strong>Tüm Kurslar</strong></h1>
       <input 
         type="text" 
         placeholder="Kurs Ara..." 
@@ -106,10 +106,10 @@ function HomePage() {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">{course.name}</h5>
-                <p className="card-text">Kategori: {course.category}</p>
-                <p className="card-text">Price: {course.price} ₺</p>
-                <p className="card-text">Eğitmen: {course.instructor}</p>
-                <p className="card-text">Değerlendirme: {course.rating}</p>
+                <p className="card-text"><strong>Kategori:</strong> {course.category}</p>
+                <p className="card-text"><strong>Price:</strong> {course.price} ₺</p>
+                <p className="card-text"><strong>Eğitmen:</strong> {course.instructor}</p>
+                <p className="card-text"><strong>Değerlendirme:</strong> {course.rating}</p>
                 <button className="btn btn-primary" onClick={() => handleDetails(course.id)}>Detaylar</button>
                 <button className="btn btn-success ms-2" onClick={() => addToCart(course)}>Sepete Ekle</button>
               </div>

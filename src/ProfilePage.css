@@ -1,0 +1,86 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1.card-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 30px;
+  }
+  
+  .card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .profile-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: .25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .profile-card .card-body {
+    padding: 20px;
+  }
+  
+  .profile-card .card-body p {
+    margin: 0.5rem 0;
+    color: #212529;
+    font-size: 1rem;
+  }
+  
+  .profile-card .btn {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  
+  .purchase-history {
+    margin-top: 2rem;
+  }
+  
+  .list-group-item {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: .25rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .list-group-item div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .list-group-item strong {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .list-group-item ul {
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .list-group-item li {
+    padding: 5px 0;
+    font-size: 0.9rem;
+    color: #495057;
+  }
+  
+  .list-group-item .btn {
+    white-space: nowrap;
+  }

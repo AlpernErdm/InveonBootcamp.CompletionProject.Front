@@ -105,3 +105,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.page-title {
+  text-align: center;
+}

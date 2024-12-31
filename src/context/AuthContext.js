@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import alertify from "alertifyjs";
 import { registerUser, loginUser } from '../services/api';
-import { jwtDecode } from 'jwt-decode'; // Named export olarak içe aktaralım
+import { jwtDecode } from 'jwt-decode'; 
 
 const AuthContext = createContext();
 
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
                 setUser({
                     id: decoded.userId,
                     email: decoded.email,
-                    role: decoded.role
+                 //   role: decoded.role
                 });
                 console.log("Restored user from token:", decoded); 
             }
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
                 const userData = {
                     id: decodedToken.userId,
                     email: decodedToken.email,
-                    role: decodedToken.role
+                   // role: decodedToken.role
                 };
 
                 localStorage.setItem('token', token);
