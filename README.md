@@ -65,11 +65,11 @@ InveonBootcamp.CompletionProject.Front/
 │   │   ├── ProfilePage.js
 │   │   └── RegisterPage.jsx
 │   ├── services/
-│   │   ├── api.js
+│   │   └── api.js
 │   ├── styles/
-│   │   └── (your stylesheets, if any)
+│   │   └── 
 │   ├── utils/
-│   │   └── (your utility functions, if any)
+│   │   └── 
 │   ├── App.css
 │   ├── App.js
 │   ├── App.test.js
