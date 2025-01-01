@@ -1,11 +1,11 @@
-// HomePage.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCourses } from "../services/api";
 import { useCart } from "../context/CartContext"; 
+import CircularProgress from '@mui/material/CircularProgress'; // Import spinner component
 import '../index.css';  
 
-function HomePage() {
+const HomePage = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();  
   
@@ -14,6 +14,7 @@ function HomePage() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true); // Loading state
   
   const [currentPage, setCurrentPage] = useState(1); 
   const coursesPerPage = 6;  
@@ -32,6 +33,8 @@ function HomePage() {
         setCategories([...new Set(allCategories)]); 
       } catch (error) {
         console.error('Failed to fetch courses:', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
 
@@ -69,6 +72,10 @@ function HomePage() {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  if (loading) {
+    return <div className="text-center mt-5"><CircularProgress /></div>;
+  }
 
   return (
     <div className="container mt-4">
