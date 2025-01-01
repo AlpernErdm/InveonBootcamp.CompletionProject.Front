@@ -12,6 +12,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../context/AuthContext';
 import alertify from 'alertifyjs';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const theme = createTheme();
 
@@ -29,8 +30,7 @@ const RegisterPage = () => {
     };
 
     const isValidPassword = (password) => {
-        // Password validation can be extended as required
-        return password.length >= 6; // Example: Password should be at least 6 characters
+        return password.length >= 6; 
     };
 
     const handleSubmit = async (e) => {
@@ -50,7 +50,6 @@ const RegisterPage = () => {
             email,
             phoneNumber
         };
-        console.log('User Details:', userDetails); 
         try {
             await register(userDetails);
             alertify.success("Başarıyla kayıt olundu!");
@@ -136,7 +135,7 @@ const RegisterPage = () => {
                             sx={{ mt: 3, mb: 2 }}
                             disabled={loading}
                         >
-                            {loading ? "Kayıt Yapılıyor..." : "Kayıt Ol"}
+                            {loading ? <CircularProgress size={24} /> : "Kayıt Ol"}
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { fetchOrderHistory, getOrderById, updateUser, fetchUserByEmail } from "../services/api";
+import { fetchOrderHistory, getOrderById, updateUser, fetchUserByEmail, deleteUser } from "../services/api";
 import alertify from "alertifyjs";
 import '../index.css'; 
+import CircularProgress from '@mui/material/CircularProgress';
 
 function ProfilePage() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, logout } = useAuth();
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [editMode, setEditMode] = useState(false); 
@@ -15,9 +16,12 @@ function ProfilePage() {
     phoneNumber: '',
     password: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setLoading(true);
       if (user && user.email) {
         try {
           const response = await fetchUserByEmail(user.email);
@@ -32,11 +36,14 @@ function ProfilePage() {
         } catch (error) {
           console.error('Failed to fetch user data:', error.response || error);
           alertify.error(error.response ? `Error ${error.response.status}: ${error.response.data}` : "Kullanıcı bilgileri getirilirken bir hata oluştu!");
+        } finally {
+          setLoading(false);
         }
       }
     };
 
     const getOrderHistory = async () => {
+      setOrderLoading(true);
       if (!user || !user.email) {
         alertify.error("Kullanıcı e-postası bulunamadı.");
         return;
@@ -49,6 +56,8 @@ function ProfilePage() {
       } catch (error) {
         console.error('Failed to fetch order history:', error.response || error);
         alertify.error(error.response ? `Error ${error.response.status}: ${error.response.data}` : "Sipariş geçmişi getirilirken bir hata oluştu!");
+      } finally {
+        setOrderLoading(false);
       }
     };
 
@@ -59,6 +68,7 @@ function ProfilePage() {
   }, [user]);
 
   const fetchOrderDetails = async (orderId) => {
+    setOrderLoading(true);
     try {
       const response = await getOrderById(orderId);
       console.log('Fetched order details:', response.data);
@@ -66,6 +76,8 @@ function ProfilePage() {
     } catch (error) {
       console.error('Failed to fetch order details:', error.response || error);
       alertify.error(error.response ? `Error ${error.response.status}: ${error.response.data}` : "Sipariş detayı getirilirken bir hata oluştu!");
+    } finally {
+      setOrderLoading(false);
     }
   };
 
@@ -76,8 +88,10 @@ function ProfilePage() {
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!user || !user.id) {
       alertify.error("Kullanıcı ID'si bulunamadı.");
+      setLoading(false);
       return;
     }
     try {
@@ -96,6 +110,21 @@ function ProfilePage() {
       } else {
         alertify.error("Kullanıcı bilgileri güncellenirken bir hata oluştu!");
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (window.confirm("Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz!")) {
+      try {
+        await deleteUser(user.id);
+        alertify.success("Hesap başarıyla silindi!");
+        logout(); // Log out user after account deletion
+      } catch (error) {
+        console.error('Failed to delete user:', error.response || error);
+        alertify.error(error.response ? `Error ${error.response.status}: ${error.response.data}` : "Kullanıcı silinirken bir hata oluştu!");
+      }
     }
   };
 
@@ -104,7 +133,11 @@ function ProfilePage() {
       <div className="card mb-4 profile-card">
         <div className="card-body">
           <h1 className="card-title">Profilim</h1>
-          {editMode ? (
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' }}>
+              <CircularProgress />
+            </div>
+          ) : editMode ? (
             <form onSubmit={handleUpdateUser}>
               <div className="mb-3">
                 <label className="form-label">Kullanıcı Adı</label>
@@ -156,32 +189,41 @@ function ProfilePage() {
               <p className="card-text"><strong>E-posta:</strong> {userData.email}</p>
               <p className="card-text"><strong>Telefon Numarası:</strong> {userData.phoneNumber}</p>
               <button className="btn btn-dark me-2" onClick={() => setEditMode(true)}>Bilgileri Güncelle</button>
+              <button className="btn btn-danger" onClick={handleDeleteUser}>Hesabı Sil</button>
             </>
           )}
         </div>
       </div>
       <div className="purchase-history">
         <h2>Satın Alınan Kurslar</h2>
-        {orders.length === 0 ? (
-          <p>Henüz satın alınan kurs yok.</p>
+        {orderLoading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' }}>
+            <CircularProgress />
+          </div>
         ) : (
-          <ul className="list-group">
-            {orders.map((order) => (
-              <li key={order.id} className="list-group-item">
-                <div>
-                  <strong>Sipariş Tarihi:</strong> {new Date(order.orderDate).toLocaleDateString()}
-                </div>
-                <button className="btn btn-dark me-2" onClick={() => fetchOrderDetails(order.id)}>Detaylar</button>
-                {selectedOrder && selectedOrder.id === order.id && (
-                  <ul className="list-unstyled mt-2">
-                    {selectedOrder.orderCourses.map((course) => (
-                      <li key={course.courseId}>{course.course.name} - {course.course.price} ₺</li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
+          <>
+            {orders.length === 0 ? (
+              <p>Henüz satın alınan kurs yok.</p>
+            ) : (
+              <ul className="list-group">
+                {orders.map((order) => (
+                  <li key={order.id} className="list-group-item">
+                    <div>
+                      <strong>Sipariş Tarihi:</strong> {new Date(order.orderDate).toLocaleDateString()}
+                    </div>
+                    <button className="btn btn-dark me-2" onClick={() => fetchOrderDetails(order.id)}>Detaylar</button>
+                    {selectedOrder && selectedOrder.id === order.id && (
+                      <ul className="list-unstyled mt-2">
+                        {selectedOrder.orderCourses.map((course) => (
+                          <li key={course.courseId}>{course.course.name} - {course.course.price} ₺</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
         )}
       </div>
     </div>

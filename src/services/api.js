@@ -39,3 +39,4 @@ export const getOrderById = (orderId) => axiosInstance.get(`/Order/GetOrder/${or
 export const updateUser = (id, userData) => axiosInstance.put(`/User/UpdateUser/${id}`, userData);
 export const fetchUserByEmail = (email) => axiosInstance.get(`/User/GetUserByEmail/${email}`);
 export const checkEmailExists = (email) => axiosInstance.get(`/User/CheckEmail/${email}`);
+export const deleteUser = (id) => axiosInstance.delete(`/User/DeleteUser/${id}`);

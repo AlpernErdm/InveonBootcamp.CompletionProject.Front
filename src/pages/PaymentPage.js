@@ -2,40 +2,24 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import alertify from 'alertifyjs';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const PaymentPage = () => {
     const { completePurchase } = useCart();
-
     const [cardDetails, setCardDetails] = useState({
         number: "",
         name: "",
         expiry: "",
         cvc: "",
     });
-
     const [errors, setErrors] = useState({});
-
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setCardDetails({ ...cardDetails, [name]: value });
     };
-
-    // const validateCardNumber = (number) => {
-    //     let sum = 0;
-    //     let shouldDouble = false;
-    //     for (let i = number.length - 1; i >= 0; i--) {
-    //         let digit = parseInt(number[i]);
-    //         if (shouldDouble) {
-    //             digit *= 2;
-    //             if (digit > 9) digit -= 9;
-    //         }
-    //         sum += digit;
-    //         shouldDouble = !shouldDouble;
-    //     }
-    //     return sum % 10 === 0;
-    // };
 
     const validateExpiry = (expiry) => {
         const [month, year] = expiry.split("/")?.map(Number) || [];
@@ -48,10 +32,6 @@ const PaymentPage = () => {
 
     const validateForm = () => {
         const newErrors = {};
-
-        // if (!cardDetails.number || !validateCardNumber(cardDetails.number.replace(/\s/g, ""))) {
-        //     newErrors.number = "Invalid card number";
-        // }
         if (!cardDetails.name) {
             newErrors.name = "Name on card is required";
         }
@@ -61,18 +41,23 @@ const PaymentPage = () => {
         if (!cardDetails.cvc || !validateCVC(cardDetails.cvc)) {
             newErrors.cvc = "CVC must be 3 or 4 digits";
         }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const handlePayment = async (e) => {
         e.preventDefault();
-
         if (validateForm()) {
-            await completePurchase();
-            alertify.success("Payment Successful!");
-            navigate("/profile");
+            setLoading(true);
+            try {
+                await completePurchase();
+                alertify.success("Payment Successful!");
+                navigate("/profile");
+            } catch (error) {
+                alertify.error("Payment failed. Please try again.");
+            } finally {
+                setLoading(false);
+            }
         } else {
             alertify.error("Please fix the errors in the form");
         }
@@ -136,7 +121,9 @@ const PaymentPage = () => {
                             {errors.cvc && <div className='invalid-feedback'>{errors.cvc}</div>}
                         </div>
                     </div>
-                    <button type='submit' className='btn btn-success w-100'>Ödemeyi Gerçekleştir</button>
+                    <button type='submit' className='btn btn-success w-100' disabled={loading}>
+                        {loading ? <CircularProgress size={24} /> : "Ödemeyi Gerçekleştir"}
+                    </button>
                 </form>
             </div>
         </div>
