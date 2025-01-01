@@ -137,4 +137,4 @@ Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen benimle iletişime ge�
 
 GitHub: @AlpernErdm
 
-Email: alperen@example.com
+Email: alpernerdm@gmail.com
