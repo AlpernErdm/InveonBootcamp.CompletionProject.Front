@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PaymentPage from "./pages/PaymentPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AdminCourseManagement from "./pages/AdminCourseManagement";
 
 export default function App() {
     return (
@@ -27,6 +28,7 @@ export default function App() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/payment" element={<PaymentPage />} />
+                        <Route path="/admin/courses" element={<AdminCourseManagement />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                     <Footer />
