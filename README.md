@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# InveonBootcamp Completion Project Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bu proje, Inveon FullStack Bootcamp Bitirme Projesi kapsamında geliştirilmiş bir frontend uygulamasıdır. Uygulama, ReactJS kullanılarak oluşturulmuş olup kullanıcı, kurs yönetimi, sipariş ve ödeme işlemlerini içermektedir.
 
-## Available Scripts
+## Gereksinimler
 
-In the project directory, you can run:
+- Node.js (v14.x veya daha üstü)
+- npm (Node Package Manager)
 
-### `npm start`
+## Kurulum
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Proje dosyalarını yerel makinenize klonlayın:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+git clone https://github.com/AlpernErdm/InveonBootcamp.CompletionProject.Front.git
+cd InveonBootcamp.CompletionProject.Front
+Gerekli bağımlılıkları yükleyin:
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+Copy Code
+npm install
+Çalıştırma
 
-### `npm run build`
+Uygulamayı geliştirme modunda çalıştırmak için:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+npm start
+Tarayıcınızı açın ve şu url'yi ziyaret edin: http://localhost:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Yapılandırma
 
-### `npm run eject`
+Uygulamanın API ile iletişime geçmesi için bazı yapılandırmalar yapılmalıdır. Proje dizininde .env dosyası oluşturun ve aşağıdaki içeriği ekleyin:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+env
+Copy Code
+REACT_APP_API_URL=http://localhost:5000/api
+Dizin Yapısı
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Projenin ana dizin yapısı aşağıdaki gibidir:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+InveonBootcamp.CompletionProject.Front/
+├── node_modules/
+├── public/
+│   ├── index.html
+├── src/
+│   ├── components/
+│   │   ├── CategoryMenu.js
+│   │   ├── CourseCard.js
+│   │   ├── Footer.js
+│   │   ├── Navbar.jsx
+│   │   ├── Pagination.js
+│   ├── context/
+│   │   ├── AuthContext.js
+│   │   ├── CartContext.js
+│   │   └── CourseContext.js
+│   ├── pages/
+│   │   ├── AdminDashboard.js
+│   │   ├── CartPage.js
+│   │   ├── CourseDetail.js
+│   │   ├── HomePage.js
+│   │   ├── LoginPage.jsx
+│   │   ├── NotFoundPage.js
+│   │   ├── PaymentPage.js
+│   │   ├── ProfilePage.js
+│   │   └── RegisterPage.jsx
+│   ├── services/
+│   │   └── api.js
+│   ├── styles/
+│   │   └── 
+│   ├── utils/
+│   │   └── 
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   ├── reportWebVitals.js
+│   └── setupTests.js
+├── .gitignore
+├── package-lock.json
+├── package.json
+└── README.md
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Kullanılan Teknolojiler
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+React: JavaScript kütüphanesi
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+React Router: Uygulama yönlendirmesi
 
-### Analyzing the Bundle Size
+Axios: HTTP istekleri
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Material-UI: UI bileşenleri
 
-### Making a Progressive Web App
+AlertifyJS: Bildirim mesajları
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Context API: State yönetimi
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Özellikler
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Kullanıcı Yönetimi: Kayıt olma, giriş yapma, kullanıcı bilgilerini güncelleme ve kullanıcı silme
 
-### `npm run build` fails to minify
+Kurs Yönetimi: Kursları listeleme, detaylarını görüntüleme
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Sipariş Yönetimi: Sipariş geçmişi görüntüleme, sipariş detaylarını getirme
+
+Ödeme İşlemleri: Ödeme bilgilerini girme ve ödeme yapma
+
+
+Katkıda Bulunma
+
+Katkıda bulunmak isterseniz lütfen aşağıdaki adımları izleyin:
+
+
+
+Bu projeyi fork'layın
+
+Yeni bir branch oluşturun (git checkout -b feature-branch)
+
+Değişikliklerinizi commit edin (git commit -m 'Add some feature')
+
+Branch'inizi push'layın (git push origin feature-branch)
+
+Bir Pull Request açın
+
+
+İletişim
+
+Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen benimle iletişime geçin:
+
+
+
+GitHub: @AlpernErdm
+
+Email: alpernerdm@gmail.com
