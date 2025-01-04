@@ -8,7 +8,7 @@
   }
   
   .footer .container {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
   }
   
@@ -18,5 +18,5 @@
   }
 
   .footer-logo {
-    height: 30px; /* İhtiyacınıza göre ayarlayın */
+    height: 30px; 
   }

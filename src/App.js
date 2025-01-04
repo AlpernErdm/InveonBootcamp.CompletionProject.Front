@@ -17,9 +17,9 @@ import AdminCourseManagement from "./pages/AdminCourseManagement";
 export default function App() {
     return (
         <AuthProvider>
+             <Navbar />
             <CourseProvider>
                 <CartProvider>
-                    <Navbar />
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/course/:id" element={<CourseDetail />} />
@@ -31,9 +31,9 @@ export default function App() {
                         <Route path="/admin/courses" element={<AdminCourseManagement />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
-                    <Footer />
                 </CartProvider>
             </CourseProvider>
+            <Footer />
         </AuthProvider>
     );
 }
