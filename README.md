@@ -90,35 +90,35 @@ InveonBootcamp.CompletionProject.Front/
 ```
 
 
-Kullanılan Teknolojiler
+### Kullanılan Teknolojiler
 
 
-React: JavaScript kütüphanesi
+**React**: JavaScript kütüphanesi
 
-React Router: Uygulama yönlendirmesi
+**React Router**: Uygulama yönlendirmesi
 
-Axios: HTTP istekleri
+**Axios**: HTTP istekleri
 
-Material-UI: UI bileşenleri
+**Material-UI**: UI bileşenleri
 
-AlertifyJS: Bildirim mesajları
+**AlertifyJS**: Bildirim mesajları
 
-Context API: State yönetimi
-
-
-Özellikler
+**Context API**: State yönetimi
 
 
-Kullanıcı Yönetimi: Kayıt olma, giriş yapma, kullanıcı bilgilerini güncelleme ve kullanıcı silme
-
-Kurs Yönetimi: Kursları listeleme, detaylarını görüntüleme
-
-Sipariş Yönetimi: Sipariş geçmişi görüntüleme, sipariş detaylarını getirme
-
-Ödeme İşlemleri: Ödeme bilgilerini girme ve ödeme yapma
+## Özellikler 
 
 
-Katkıda Bulunma
+**Kullanıcı Yönetimi**: Kayıt olma, giriş yapma, kullanıcı bilgilerini güncelleme ve kullanıcı silme
+
+**Kurs Yönetimi**: Kursları listeleme, detaylarını görüntüleme
+
+**Sipariş Yönetimi**: Sipariş geçmişi görüntüleme, sipariş detaylarını getirme
+
+**Ödeme İşlemleri**: Ödeme bilgilerini girme ve ödeme yapma
+
+
+## Katkıda Bulunma
 
 Katkıda bulunmak isterseniz lütfen aşağıdaki adımları izleyin:
 
@@ -135,7 +135,7 @@ Branch'inizi push'layın (git push origin feature-branch)
 Bir Pull Request açın
 
 
-İletişim
+## İletişim
 
 Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen benimle iletişime geçin:
 
