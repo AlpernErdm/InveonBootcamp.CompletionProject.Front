@@ -10,9 +10,10 @@ Bu proje, Inveon FullStack Bootcamp Bitirme Projesi kapsamında geliştirilmiş 
 ## Kurulum
 
 Proje dosyalarını yerel makinenize klonlayın:
-
+```json
 git clone https://github.com/AlpernErdm/InveonBootcamp.CompletionProject.Front.git
 cd InveonBootcamp.CompletionProject.Front
+```
 Gerekli bağımlılıkları yükleyin:
 
 
@@ -22,8 +23,9 @@ npm install
 Çalıştırma
 
 Uygulamayı geliştirme modunda çalıştırmak için:
-
+```json
 npm start
+```
 Tarayıcınızı açın ve şu url'yi ziyaret edin: http://localhost:3000
 
 
@@ -134,7 +136,8 @@ Bir Pull Request açın
 Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen benimle iletişime geçin:
 
 
-
+```json
 GitHub: @AlpernErdm
 
 Email: alpernerdm@gmail.com
+```
