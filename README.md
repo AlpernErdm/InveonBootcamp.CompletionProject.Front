@@ -39,8 +39,11 @@ Copy Code
 REACT_APP_API_URL=http://localhost:5000/api
 Dizin Yapısı
 
+## Dizin Yapısı
+
 Projenin ana dizin yapısı aşağıdaki gibidir:
 
+```plaintext
 InveonBootcamp.CompletionProject.Front/
 ├── node_modules/
 ├── public/
@@ -84,6 +87,7 @@ InveonBootcamp.CompletionProject.Front/
 ├── package-lock.json
 ├── package.json
 └── README.md
+```
 
 
 Kullanılan Teknolojiler
